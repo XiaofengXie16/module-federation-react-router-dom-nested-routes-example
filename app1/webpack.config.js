@@ -1,7 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { ModuleFederationPlugin } = require("webpack").container;
+const {ModuleFederationPlugin} = require("webpack").container;
 const ExternalTemplateRemotesPlugin = require("./ExternalTemplateRemotesPlugin");
 const path = require("path");
+const dep = require('./package.json')
 
 module.exports = {
     entry: "./src/index",
@@ -31,7 +32,10 @@ module.exports = {
             remotes: {
                 app2: "app2@[app1Url]/remoteEntry.js",
             },
-            shared: { react: { singleton: true }, "react-dom": { singleton: true } },
+            shared: {
+                react: {singleton: true, requiredVersion: dep.react},
+                "react-dom": {singleton: true, requiredVersion: dep['react-dom']}
+            },
         }),
         new ExternalTemplateRemotesPlugin(),
         new HtmlWebpackPlugin({
