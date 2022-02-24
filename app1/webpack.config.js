@@ -30,11 +30,12 @@ module.exports = {
         new ModuleFederationPlugin({
             name: "app1",
             remotes: {
-                app2: "app2@[app1Url]/remoteEntry.js",
+                app2: "app2@[app2Url]/remoteEntry.js",
             },
             shared: {
                 react: {singleton: true, requiredVersion: dep.react},
-                "react-dom": {singleton: true, requiredVersion: dep['react-dom']}
+                "react-dom": {singleton: true, requiredVersion: dep['react-dom']},
+                "@datadog/browser-rum": {singleton: true,requiredVersion: dep["@datadog/browser-rum"]},
             },
         }),
         new ExternalTemplateRemotesPlugin(),

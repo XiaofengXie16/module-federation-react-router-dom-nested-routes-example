@@ -1,5 +1,16 @@
 import React,{Suspense} from "react";
+import {datadogRum} from "@datadog/browser-rum";
 const RemoteButton = React.lazy(()=>import("app2/Button"));
+
+datadogRum.init({
+    applicationId: "my-id",
+    clientToken: "my-token",
+    env: "local",
+    service: "galaxy",
+    site: "datadoghq.com",
+    trackInteractions: false,
+    version: "Unknown Version"
+});
 
 const App = () => {
     return(

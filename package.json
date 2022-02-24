@@ -1,5 +1,6 @@
 {
   "private": true,
+  "repository": " https://github.com/XiaofengXie16/module-federation.git",
   "workspaces": {
     "packages": [
       "app1",
