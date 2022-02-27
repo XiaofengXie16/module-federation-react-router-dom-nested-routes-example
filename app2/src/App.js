@@ -1,12 +1,14 @@
 import React from "react";
-import Button from "./Button";
+import {BrowserRouter,Routes,Route} from "react-router-dom";
+import AppRoutes from "./AppRoutes";
 
 const App = () => {
     return (
-        <>
-            <h1 style={{background: "purple"}}>Hello this is App 2</h1>
-            <Button/>
-        </>
+        <div>
+            <BrowserRouter basename={"app-2/"}>
+                    <AppRoutes/>
+            </BrowserRouter>
+        </div>
     )
 }
 

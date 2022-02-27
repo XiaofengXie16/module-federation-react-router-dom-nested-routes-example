@@ -8,11 +8,12 @@ module.exports = {
     entry: "./src/index",
     mode: "development",
     devServer: {
+        historyApiFallback: true,
         contentBase: path.join(__dirname, "dist"),
         port: 3001,
     },
     output: {
-        publicPath: "auto",
+        publicPath: "http://localhost:3001/",
     },
     module: {
         rules: [
@@ -33,9 +34,9 @@ module.exports = {
                 app2: "app2@[app2Url]/remoteEntry.js",
             },
             shared: {
+                "react-router-dom":{singleton:true, requiredVersion: dep['react-router-dom']},
                 react: {singleton: true, requiredVersion: dep.react},
                 "react-dom": {singleton: true, requiredVersion: dep['react-dom']},
-                "@datadog/browser-rum": {singleton: true,requiredVersion: dep["@datadog/browser-rum"]},
             },
         }),
         new ExternalTemplateRemotesPlugin(),

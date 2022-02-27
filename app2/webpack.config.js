@@ -8,10 +8,11 @@ module.exports = {
     mode: "development",
     devServer: {
         contentBase: path.join(__dirname, "dist"),
+        historyApiFallback: true,
         port: 3002,
     },
     output: {
-        publicPath: "auto",
+        publicPath: "http://localhost:3002/app-2/",
     },
     module: {
         rules: [
@@ -31,10 +32,10 @@ module.exports = {
             library: {type: "var", name: "app2"},
             filename: "remoteEntry.js",
             exposes: {
-                "./Button": "./src/Button",
+                "./AppRoutes": "./src/AppRoutes.js",
             },
             shared: {
-                "@datadog/browser-rum": {singleton: true,requiredVersion: dep["@datadog/browser-rum"]},
+                "react-router-dom":{singleton:true, requiredVersion: dep['react-router-dom']},
                 react: {singleton: true, requiredVersion: dep.react},
                 "react-dom": {singleton: true, requiredVersion: dep['react-dom']}
             },

@@ -1,26 +1,38 @@
-import React,{Suspense} from "react";
-import {datadogRum} from "@datadog/browser-rum";
-const RemoteButton = React.lazy(()=>import("app2/Button"));
+import React, {Suspense} from "react";
+import {BrowserRouter, Routes, Route, Outlet, useLocation, Link} from "react-router-dom";
 
-datadogRum.init({
-    applicationId: "my-id",
-    clientToken: "my-token",
-    env: "local",
-    service: "galaxy",
-    site: "datadoghq.com",
-    trackInteractions: false,
-    version: "Unknown Version"
-});
+const App2 = React.lazy(() => import("app2/AppRoutes"));
 
+const Root = () => {
+    const location = useLocation();
+    console.log(location);
+
+    return (
+        <Outlet/>
+    );
+};
 const App = () => {
-    return(
+    return (
         <div>
-        <h1 style={{background: "cyan"}}>Hello this is App 1</h1>
-            <Suspense fallback={"loading..."}>
-                <RemoteButton/>
-            </Suspense>
-        </div>)
+            <BrowserRouter>
+                <nav>
+                    <Link to="/app-1/">App1</Link>
+                    <br/>
+                    <Link to="/app-2/kkk">App2</Link>
+                </nav>
+                <Routes>
+                    <Route paht={"/"} element={<Root/>}>
+                        <Route path="app-1/*" element={<div>app 1 router</div>}/>
+                    <Route path={"app-2/*"} element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <App2/>
+                        </Suspense>
+                    }/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </div>
+    )
 }
-
 
 export default App;
